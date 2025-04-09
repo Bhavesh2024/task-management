@@ -1,0 +1,15 @@
+Task Management
+-----------------
+Technologies -> React,Tailwind,Node,Express,MongoDB
+
+
+1. Provide User Option to Login
+2. Login Form
+3. User Dashboard
+4. Add,Update,Delete,View Tasks
+5. Task Analytics & Filters
+6. Task History
+7. Edit User Profile
+
+
+
