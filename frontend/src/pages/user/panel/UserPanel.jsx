@@ -28,7 +28,9 @@ const UserPanel = () => {
 			{isError && <NotFound />}
 			{isSuccess && (
 				<div className='flex'>
-					{openSidebar && <Sidebar />}
+					{openSidebar && (
+						<Sidebar handler={setOpenSidebar} />
+					)}
 					<div
 						className={`flex flex-col h-screen fixed end-0 ${
 							openSidebar

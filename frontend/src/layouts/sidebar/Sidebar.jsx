@@ -3,6 +3,7 @@ import {
 	FileClock,
 	LayoutDashboard,
 	LogOut,
+	X,
 } from "lucide-react";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -11,7 +12,7 @@ import Modal from "../../components/modal/Modal";
 import ResponseModal from "../../components/modal/message/ResponseModal";
 import { AuthContext } from "../../context/AuthContextProvider";
 
-const Sidebar = () => {
+const Sidebar = ({ handler }) => {
 	const { logout, setResponseMessage, setOpenResponseModal } =
 		useContext(AuthContext);
 	const [open, setOpen] = useState(false);
@@ -60,8 +61,11 @@ const Sidebar = () => {
 	};
 	return (
 		<>
-			<div className='h-screen fixed top-0 left-0 w-full md:w-1/5 bg-black/20 flex z-10    '>
+			<div className='h-screen fixed top-0 left-0 w-full md:w-1/5 bg-black/20 flex z-10'>
 				<div className='h-full max-h-screen bg-slate-100 w-2/3 md:w-full relative overflow-auto'>
+					<X
+						className='md:hidden absolute top-2 end-2 size-5 text-slate-400'
+						onClick={() => handler(false)}></X>
 					<div className='flex flex-col items-center gap-1 justify-between md:justify-start'>
 						<img
 							src='../../../images/default/user.png'
@@ -70,7 +74,7 @@ const Sidebar = () => {
 							title='User Image'
 						/>
 						<Link
-							to={"/edit-profile"}
+							to={"/user/edit-profile"}
 							className='text-sky-400'>
 							Edit Profile
 						</Link>
