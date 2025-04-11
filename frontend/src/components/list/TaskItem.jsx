@@ -64,9 +64,6 @@ const TaskItem = ({
 		}
 	}, [RemoveTaskSuccess]);
 
-	useEffect(() => {
-		console.log("task ::::", data);
-	}, []);
 	return (
 		<>
 			<div className='h-12 w-full bg-slate-100 flex items-center justify-between rounded-md px-3 hover:bg-sky-200'>

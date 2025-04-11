@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../../../layouts/navbar/Navbar";
-import Sidebar from "../../../layouts/sidebar/Sidebar";
-import { Outlet } from "react-router-dom";
 import { useGetAllTaskQuery } from "../../../store/api/taskApi";
 import PageLoading from "../../../components/loader/PageLoading";
 
@@ -63,7 +60,7 @@ const Dashboard = () => {
 				</div>
 			)}
 			{isSuccess && (
-				<div className='w-11/12 mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4'>
+				<div className='w-11/12 md:w-10/12 mx-auto mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4'>
 					{[
 						{
 							label: "Total Tasks",
@@ -71,9 +68,9 @@ const Dashboard = () => {
 							color: "bg-slate-500",
 						},
 						{
-							label: "Completed",
-							count: taskCount.completed,
-							color: "bg-emerald-500",
+							label: "Not Started",
+							count: taskCount.notStarted,
+							color: "bg-red-400",
 						},
 						{
 							label: "In Progress",
@@ -81,14 +78,14 @@ const Dashboard = () => {
 							color: "bg-indigo-500",
 						},
 						{
+							label: "Completed",
+							count: taskCount.completed,
+							color: "bg-emerald-500",
+						},
+						{
 							label: "Incomplete",
 							count: taskCount.inComplete,
 							color: "bg-yellow-400",
-						},
-						{
-							label: "Not Started",
-							count: taskCount.notStarted,
-							color: "bg-red-400",
 						},
 					].map((item, index) => (
 						<div

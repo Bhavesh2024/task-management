@@ -12,7 +12,7 @@ import ResponseModal from "../../modal/message/ResponseModal";
 import Modal from "../../modal/Modal";
 import { useDispatch } from "react-redux";
 import { addTask, updateTask } from "../../../store/features/taskSlice";
-
+import { statusOptions } from "../../../utils/status";
 const TaskForm = ({ action, data = null, title, setOpen }) => {
 	const [label, setLabel] = useState([]);
 	const [message, setMessage] = useState("");
@@ -112,25 +112,6 @@ const TaskForm = ({ action, data = null, title, setOpen }) => {
 		validateOnChange: true,
 		validateOnMount: false,
 	});
-
-	const statusOptions = [
-		{
-			value: 0,
-			title: "Not Started",
-		},
-		{
-			value: 1,
-			title: "Completed",
-		},
-		{
-			value: 2,
-			title: "In Progress",
-		},
-		{
-			value: 3,
-			title: "Incomplete",
-		},
-	];
 
 	useEffect(() => {
 		formik.setFieldValue("label", label);

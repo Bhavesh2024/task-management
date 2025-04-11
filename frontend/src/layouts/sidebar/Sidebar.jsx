@@ -5,19 +5,27 @@ import {
 	LogOut,
 	X,
 } from "lucide-react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useHandleLogoutMutation } from "../../store/api/authApi";
 import Modal from "../../components/modal/Modal";
 import ResponseModal from "../../components/modal/message/ResponseModal";
 import { AuthContext } from "../../context/AuthContextProvider";
+import { useDispatch, useSelector } from "react-redux";
+import { useEditUserAvatarMutation } from "../../store/api/userApi";
+import { updateUser } from "../../store/features/userSlice";
 
 const Sidebar = ({ handler }) => {
 	const { logout, setResponseMessage, setOpenResponseModal } =
 		useContext(AuthContext);
-	const [open, setOpen] = useState(false);
-
+	const fileRef = useRef(null);
+	const user = useSelector((state) => state.user.value);
+	const dispatch = useDispatch();
+	const [previewImage, setPreviewImage] = useState(null);
 	const navigate = useNavigate();
+	const [editAvatar, { data: updatedUser, isError, isSuccess }] =
+		useEditUserAvatarMutation();
+	const [message, setMessage] = useState("");
 	const userActivities = [
 		{
 			link: "/user",
@@ -59,6 +67,47 @@ const Sidebar = ({ handler }) => {
 			setOpenResponseModal(true);
 		}
 	};
+
+	const editUserProfileImage = async (e) => {
+		try {
+			const { files } = e.target;
+			const formData = new FormData();
+
+			if (files) {
+				const [image] = files;
+				if (image) {
+					setPreviewImage(image);
+					formData.append("image", image);
+					const response = await editAvatar(
+						formData,
+					).unwrap();
+					if (response) {
+						console.log(response);
+						// dispatch(updatedUser(response.user));
+					}
+				}
+			}
+		} catch (err) {
+			if (err.data) {
+				setMessage(err.data.message);
+			} else {
+				setMessage(err.message);
+			}
+		}
+	};
+
+	useEffect(() => {
+		if (user) {
+			console.log("user", user);
+		}
+	}, [user]);
+
+	useEffect(() => {
+		if (isSuccess) {
+			dispatch(updateUser(updatedUser.user));
+		}
+	}, [isSuccess]);
+
 	return (
 		<>
 			<div className='h-screen fixed top-0 left-0 w-full md:w-1/5 bg-black/20 flex z-10'>
@@ -66,25 +115,47 @@ const Sidebar = ({ handler }) => {
 					<X
 						className='md:hidden absolute top-2 end-2 size-5 text-slate-400'
 						onClick={() => handler(false)}></X>
-					<div className='flex flex-col items-center gap-1 justify-between md:justify-start'>
+					<div className='flex flex-col mt-10 items-center gap-1 justify-between md:justify-start'>
 						<img
-							src='../../../images/default/user.png'
-							className='w-40 h-40 rounded-full'
+							src={
+								previewImage
+									? URL.createObjectURL(
+											previewImage,
+									  )
+									: !user.image
+									? "../../../images/default/user.png"
+									: user.image
+							}
+							className='w-32 h-32 rounded-full'
 							alt='User Image'
 							title='User Image'
 						/>
-						<Link
+						<input
+							type='file'
+							onChange={editUserProfileImage}
+							name='file'
+							ref={fileRef}
+							hidden
+						/>
+						<button
 							to={"/user/edit-profile"}
-							className='text-sky-400'>
+							className='text-sky-400'
+							onClick={() =>
+								fileRef.current.click()
+							}>
 							Edit Profile
-						</Link>
+						</button>
 					</div>
 					<div className='mt-10'>
 						<ul className='flex flex-col gap-2'>
 							{userActivities.map(
-								({ link, name, icon }) => (
+								(
+									{ link, name, icon },
+									index,
+								) => (
 									<Link
 										to={link}
+										key={`TM${index}`}
 										className='flex justify-center hover:bg-slate-500 hover:text-white h-10  items-center'>
 										<li className='flex w-1/2 '>
 											<span className='flex w-full gap-1'>

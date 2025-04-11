@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../../../layouts/navbar/Navbar";
 import Sidebar from "../../../layouts/sidebar/Sidebar";
 import { Outlet } from "react-router-dom";
@@ -10,11 +10,14 @@ import ResponseModal from "../../../components/modal/message/ResponseModal";
 import AuthContextProvider, {
 	AuthContext,
 } from "../../../context/AuthContextProvider";
+import { useDispatch } from "react-redux";
+import { updateUser } from "../../../store/features/userSlice";
 const UserPanel = () => {
 	const [openSidebar, setOpenSidebar] = useState(
 		window.matchMedia("(min-width:576px)").matches,
 	);
-	const { isSuccess, isError, isLoading } = useCheckLoginQuery();
+	const { data, isSuccess, isError, isLoading } = useCheckLoginQuery();
+	const dispatch = useDispatch();
 	const {
 		openResponseModal,
 		setOpenResponseModal,
@@ -22,6 +25,15 @@ const UserPanel = () => {
 		isSuccess: logoutSuccess,
 		responseMessage,
 	} = useContext(AuthContext);
+
+	useEffect(() => {
+		if (data) {
+			const { user } = data;
+			if (user) {
+				dispatch(updateUser(user));
+			}
+		}
+	}, [isSuccess]);
 	return (
 		<>
 			{isLoading && <PageLoading />}
