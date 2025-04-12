@@ -3,6 +3,7 @@ import {
 	FileClock,
 	LayoutDashboard,
 	LogOut,
+	SquareUser,
 	X,
 } from "lucide-react";
 import React, { useContext, useEffect, useRef, useState } from "react";
@@ -41,6 +42,11 @@ const Sidebar = ({ handler }) => {
 			link: "/user/my-task",
 			name: "Tasks",
 			icon: <CalendarCheck />,
+		},
+		{
+			link: "/user/account",
+			name: "Account",
+			icon: <SquareUser />,
 		},
 	];
 
@@ -167,7 +173,7 @@ const Sidebar = ({ handler }) => {
 								),
 							)}
 							<li
-								className='flex justify-center items-center md:absolute h-12 bottom-0 w-full bg-slate-900 hover:bg-slate-500 text-white'
+								className='flex justify-center items-center absolute h-12 bottom-0 w-full bg-slate-900 hover:bg-slate-500 text-white'
 								onClick={handleLogout}>
 								<div className='flex w-1/2'>
 									<span className='flex w-full gap-1'>

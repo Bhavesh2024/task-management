@@ -158,7 +158,7 @@ const MyTask = () => {
 		<>
 			{myTaskLoading && <PageLoading />}
 			{!myTaskLoading && (
-				<div className='h-full w-full text-center mt-36'>
+				<div className='h-full w-full text-center mt-36 pb-20 overflow-auto'>
 					<div className='flex justify-between h-12 w-11/12 mx-auto items-center'>
 						<h1 className='text-xl font-sans font-semibold text-slate-600'>
 							My Tasks

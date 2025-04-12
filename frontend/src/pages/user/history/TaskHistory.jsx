@@ -85,13 +85,13 @@ const TaskHistory = () => {
 		<>
 			{myTaskLoading && <PageLoading />}
 			{!myTaskLoading && (
-				<div className='h-full w-full text-center mt-36'>
-					<div className='flex justify-between h-12 w-11/12 mx-auto items-center'>
+				<div className='flex flex-col gap-3 h-full w-full text-center mt-36 pb-20 overflow-auto'>
+					<div className='flex flex-col gap-4 md:flex-row justify-between h-fit  md:h-12 w-11/12 mx-auto items-center'>
 						<h1 className='text-xl font-sans font-semibold text-slate-600'>
 							Task History
 						</h1>
-						<div className='flex gap-2'>
-							<div className='flex border rounded-md border-slate-300 shadow h-10 items-center '>
+						<div className='flex justify-center  md:w-auto  px-4 gap-1'>
+							<div className='flex w-3/5 md:w-auto border rounded-md border-slate-300 shadow h-10 items-center '>
 								<input
 									type='text'
 									name='search'
@@ -99,7 +99,7 @@ const TaskHistory = () => {
 									className='focus:outline-0 h-full placeholder:text-xs px-2 flex items-center text-sm'
 									placeholder='Search tasks..'
 								/>
-								<div className='flex items-center justify-center h-full w-8'>
+								<div className='flex items-center justify-center h-full me-7 md:w-8'>
 									<Search className='size-4 text-slate-500' />
 								</div>
 							</div>

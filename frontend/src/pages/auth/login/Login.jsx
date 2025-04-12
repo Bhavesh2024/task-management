@@ -39,12 +39,15 @@ const Login = () => {
 
 	useEffect(() => {
 		if (openMessage) {
-			setTimeout(() => {
-				setOpenMessage(false);
-				if (isSuccess) {
-					navigate("/user");
-				}
-			}, 3000);
+			setTimeout(
+				() => {
+					setOpenMessage(false);
+					if (isSuccess) {
+						navigate("/user");
+					}
+				},
+				isError ? 3000 : 1000,
+			);
 		}
 	}, [openMessage, isSuccess, isError]);
 	return (

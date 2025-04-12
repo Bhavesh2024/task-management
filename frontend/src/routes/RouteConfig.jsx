@@ -4,7 +4,7 @@ import Home from "../pages/home/Home";
 import Dashboard from "../pages/user/dashboard/Dashboard";
 import MyTask from "../pages/user/tasks/MyTask";
 import TaskHistory from "../pages/user/history/TaskHistory";
-import EditProfile from "../pages/user/edit-profile/EditProfile";
+import Account from "../pages/user/account/Account";
 import Login from "../pages/auth/login/Login";
 import UserPanel from "../pages/user/panel/UserPanel";
 import AuthContextProvider from "../context/AuthContextProvider";
@@ -43,8 +43,8 @@ const RouteConfig = () => {
 							element={<TaskHistory />}
 						/>
 						<Route
-							path='edit-profile'
-							element={<EditProfile />}
+							path='account'
+							element={<Account />}
 						/>
 					</Route>
 				</Routes>

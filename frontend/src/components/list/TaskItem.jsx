@@ -66,16 +66,35 @@ const TaskItem = ({
 
 	return (
 		<>
-			<div className='h-12 w-full bg-slate-100 flex items-center justify-between rounded-md px-3 hover:bg-sky-200'>
+			<div className='h-fit p-3 items-center md:h-12 w-full bg-slate-100 flex flex-col gap-2 md:flex-row  md:items-center justify-between rounded-md px-3 hover:bg-sky-200 relative'>
 				<div className='flex gap-2 items-center text-sm font-sans'>
 					<LayoutList className='size-5' />
 					{name}
 				</div>
-				<div className='w-fit ms-auto me-2'>
-					<div className='flex justify-start items-center text-xs bg-white rounded-md p-2 gap-2 w-full'>
+				<div className='w-full md:w-fit md:ms-auto me-2'>
+					<div className='hidden md:flex justify-start items-center  md:text-xs bg-white rounded-md p-2 gap-2 w-full'>
 						<CalendarClock className='size-4' />
 						{formatDateTime(time.start)} -{" "}
 						{formatDateTime(time.end)}
+					</div>
+					<div className='flex flex-col md:hidden justify-start items-center text-xs bg-white rounded-md p-2 gap-2 w-full'>
+						{/* <CalendarClock className='size-4' /> */}
+						<div className='flex items-center justify-center gap-1 w-full'>
+							<h5 className='font-semibold text-neutral-800'>
+								Start Time :
+							</h5>{" "}
+							<span>
+								{formatDateTime(time.start)}
+							</span>
+						</div>
+						<div className='flex items-center justify-center gap-1 w-full'>
+							<h5 className='font-semibold text-neutral-800'>
+								End Time :
+							</h5>{" "}
+							<span>
+								{formatDateTime(time.end)}
+							</span>
+						</div>
 					</div>
 				</div>
 				<div
@@ -85,13 +104,13 @@ const TaskItem = ({
 					{taskStatus[`${status}`].text}
 				</div>
 
-				<div className='relative'>
+				<div className='absolute top-2 end-2 md:top-0 md:end-0 md:relative flex justify-center items-center'>
 					<EllipsisVertical
-						className='text-slate-700 size-5 cursor-pointer hover:text-gray-500 transition'
+						className='text-slate-700 size-4 cursor-pointer hover:text-gray-500 transition'
 						onClick={() => setOpen(!open)}
 					/>
 					{open && (
-						<div className='absolute right-0 mt-2 min-w-28  bg-white border border-gray-200 rounded-lg shadow-lg z-10 overflow-auto max-h-48'>
+						<div className='absolute right-0 mt-2 top-5 end-0  min-w-28  bg-white border border-gray-200 rounded-lg shadow-lg z-10 overflow-auto max-h-48'>
 							<ul className='flex flex-col '>
 								<li
 									className='flex gap-1 items-center px-4 py-1 hover:bg-sky-200 cursor-pointer text-sky-500'
